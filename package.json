@@ -1,0 +1,32 @@
+{
+	"name": "aframe-drag-controls",
+	"version": "1.0.0",
+	"description": "A wrapper for THREE.DragControls.",
+	"keywords": [
+		"aframe",
+		"component",
+		"three"
+	],
+	"license": "MIT",
+	"author": "Sergej Sintschilin <seregpie@gmail.com>",
+	"files": [],
+	"main": "index.js",
+	"repository": "github:SeregPie/aframe-drag-controls",
+	"scripts": {
+		"build": "rollup -c",
+		"prepublishOnly": "npm run build",
+		"serve": "rollup -c -w"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.10",
+		"@babel/preset-env": "^7.12.11",
+		"@rollup/plugin-babel": "^5.2.2",
+		"eslint": "^7.17.0",
+		"eslint-config-seregpie": "^1.0.2",
+		"rollup": "^2.36.1",
+		"rollup-plugin-terser": "^7.0.2"
+	},
+	"peerDependencies": {
+		"aframe": ">=1.1"
+	}
+}
