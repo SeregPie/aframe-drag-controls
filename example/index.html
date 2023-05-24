@@ -1,0 +1,18 @@
+<head>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="../index.js"></script>
+</head>
+
+<body>
+<a-scene>
+    <a-entity
+      camera
+      drag-controls="objects: .draggable"
+      look-controls
+    ></a-entity>
+    <a-box position="0 0 -3"
+      color="red"
+      class="draggable"
+    ></a-box>
+  </a-scene>
+</body>
