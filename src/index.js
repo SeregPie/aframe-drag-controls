@@ -20,6 +20,7 @@ AFRAME.registerComponent(name, {
 			camera,
 			renderer.domElement,
 		);
+    controls.transformDescendants = false;
 		controls.addEventListener('dragstart', () => {
 			el.emit(`${name}:changed`, {active: true}, false);
 		});

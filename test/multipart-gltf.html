@@ -1,0 +1,25 @@
+<head>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="../index.js"></script>
+</head>
+
+<body>
+<a-scene>
+  <a-assets>
+  <a-asset-item id="cell"
+    src="https://cdn.jsdelivr.net/gh/diarmidmackenzie/instanced-mesh@main/tests/assets/animal-cell/scene.gltf"
+    response-type="arraybuffer" crossorigin="anonymous">
+  </a-asset-item>
+  </a-assets>
+  
+    <a-entity
+      camera
+      drag-controls="objects: .draggable"
+      look-controls
+    ></a-entity>
+    <a-entity position="0 0 -1" gltf-model="#cell"
+              scale="0.1 0.1 0.1"
+              class="draggable">
+    </a-entity>
+  </a-scene>
+</body>

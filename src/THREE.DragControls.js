@@ -166,6 +166,29 @@ var DragControls = function ( _objects, _camera, _domElement ) {
 
 	}
 
+  function objectFromIntersection(intersection) {
+
+    if ( scope.transformGroup === true ) return _objects[0]
+
+    if ( scope.transformDescendants === true ) return intersection.object
+
+    function findAncestorInObjectsList(object) {
+
+      if (_objects.includes(object)) {
+        return 
+      }
+      else if (object.parent) {
+        return findAncestorInObjectsList(object.parent)
+      }
+      else {
+        return null
+      }
+    }
+
+    return findAncestoreInObjectsList(intersections.object)
+
+  }
+
 	function onMouseDown( event ) {
 
 		// fix
@@ -178,7 +201,7 @@ var DragControls = function ( _objects, _camera, _domElement ) {
 
 		if ( _intersections.length > 0 ) {
 
-			_selected = ( scope.transformGroup === true ) ? _objects[ 0 ] : _intersections[ 0 ].object;
+			_selected = objectFromIntersection(_intersections[ 0 ]);
 
 			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
 
@@ -330,6 +353,7 @@ var DragControls = function ( _objects, _camera, _domElement ) {
 
 	this.enabled = true;
 	this.transformGroup = false;
+  this.transformDescendants = true;
 
 	this.activate = activate;
 	this.deactivate = deactivate;
