@@ -175,7 +175,7 @@ var DragControls = function ( _objects, _camera, _domElement ) {
     function findAncestorInObjectsList(object) {
 
       if (_objects.includes(object)) {
-        return 
+        return object
       }
       else if (object.parent) {
         return findAncestorInObjectsList(object.parent)
@@ -185,7 +185,7 @@ var DragControls = function ( _objects, _camera, _domElement ) {
       }
     }
 
-    return findAncestoreInObjectsList(intersections.object)
+    return findAncestorInObjectsList(intersection.object)
 
   }
 
