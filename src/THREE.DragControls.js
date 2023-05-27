@@ -166,28 +166,28 @@ var DragControls = function ( _objects, _camera, _domElement ) {
 
 	}
 
-  function objectFromIntersection(intersection) {
+	function objectFromIntersection(intersection) {
 
-    if ( scope.transformGroup === true ) return _objects[0]
+		if ( scope.transformGroup === true ) return _objects[0]
 
-    if ( scope.transformDescendants === true ) return intersection.object
+		if ( scope.transformDescendants === true ) return intersection.object
 
-    function findAncestorInObjectsList(object) {
+		function findAncestorInObjectsList(object) {
 
-      if (_objects.includes(object)) {
-        return object
-      }
-      else if (object.parent) {
-        return findAncestorInObjectsList(object.parent)
-      }
-      else {
-        return null
-      }
-    }
+			if (_objects.includes(object)) {
+				return object
+			}
+			else if (object.parent) {
+				return findAncestorInObjectsList(object.parent)
+			}
+			else {
+				return null
+			}
+		}
 
-    return findAncestorInObjectsList(intersection.object)
+		return findAncestorInObjectsList(intersection.object)
 
-  }
+	}
 
 	function onMouseDown( event ) {
 
