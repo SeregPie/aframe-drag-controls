@@ -17,6 +17,7 @@ let {
 	Vector3,
 } = THREE;
 
+
 const _plane = new Plane();
 const _raycaster = new Raycaster();
 
@@ -152,6 +153,34 @@ class DragControls extends EventDispatcher {
 
 		}
 
+		function objectFromIntersection( intersection ) {
+
+			if ( scope.transformGroup === true ) return _objects[ 0 ];
+
+			if ( scope.transformDescendants === true ) return intersection.object;
+
+			function findAncestorInObjectsList( object ) {
+
+				if ( _objects.includes( object ) ) {
+
+					return object;
+
+				} else if ( object.parent ) {
+
+					return findAncestorInObjectsList( object.parent );
+
+				} else {
+
+					return null;
+
+				}
+
+			}
+
+			return findAncestorInObjectsList( intersection.object );
+
+		}
+
 		function onPointerDown( event ) {
 
 			if ( scope.enabled === false ) return;
@@ -165,7 +194,7 @@ class DragControls extends EventDispatcher {
 
 			if ( _intersections.length > 0 ) {
 
-				_selected = ( scope.transformGroup === true ) ? _objects[ 0 ] : _intersections[ 0 ].object;
+				_selected = objectFromIntersection( _intersections[ 0 ] );
 
 				_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
 
@@ -216,6 +245,7 @@ class DragControls extends EventDispatcher {
 
 		this.enabled = true;
 		this.transformGroup = false;
+		this.transformDescendants = true;
 
 		this.activate = activate;
 		this.deactivate = deactivate;

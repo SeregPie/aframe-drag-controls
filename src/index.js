@@ -20,13 +20,13 @@ AFRAME.registerComponent(name, {
 			camera,
 			renderer.domElement,
 		);
+    controls.transformDescendants = false;
 		controls.addEventListener('dragstart', () => {
 			el.emit(`${name}:changed`, {active: true}, false);
 		});
 		controls.addEventListener('dragend', () => {
 			el.emit(`${name}:changed`, {active: false}, false);
 		});
-		let mapObjectToEl = new Map();
 		[
 			'dragstart',
 			'drag',
@@ -35,7 +35,7 @@ AFRAME.registerComponent(name, {
 			'hoveroff',
 		].forEach(type => {
 			controls.addEventListener(type, ({object}) => {
-				let el = mapObjectToEl.get(object);
+				let el = object.el;
 				if (el) {
 					el.emit(type, {object3D: object}, false);
 				}
@@ -44,7 +44,6 @@ AFRAME.registerComponent(name, {
 		Object.assign(this, {
 			camera,
 			controls,
-			mapObjectToEl,
 		});
 	},
 	update() {
@@ -63,7 +62,6 @@ AFRAME.registerComponent(name, {
 			controls,
 			data,
 			el,
-			mapObjectToEl,
 		} = this;
 		let {
 			enabled,
@@ -72,14 +70,9 @@ AFRAME.registerComponent(name, {
 		if (enabled) {
 			let els = Array.from(el.sceneEl.querySelectorAll(selector));
 			let objects = [];
-			mapObjectToEl.clear();
 			els.forEach(el => {
 				if (el.isEntity && el.object3D) {
-					Object.keys(el.object3DMap).forEach(key => {
-						let object = el.getObject3D(key);
-						objects.push(object);
-						mapObjectToEl.set(object, el);
-					});
+          objects.push(el.object3D);
 				}
 			});
 			controls.getObjects().splice(0, undefined, ...objects);
