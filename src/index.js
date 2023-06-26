@@ -75,7 +75,7 @@ AFRAME.registerComponent(name, {
           objects.push(el.object3D);
 				}
 			});
-			controls.getObjects().splice(0, undefined, ...objects);
+			controls.getObjects().splice(0, Infinity, ...objects);
 		}
 	},
 });
